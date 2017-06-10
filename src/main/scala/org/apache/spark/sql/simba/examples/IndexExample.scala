@@ -31,6 +31,7 @@ object IndexExample {
     datapoints.createOrReplaceTempView("a")
 
     simba.indexTable("a", RTreeType, "testqtree",  Array("x", "y") )
+    simba.persistIndex("testqtree", "test")
 
     simba.showIndex("a")
   }

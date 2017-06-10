@@ -82,3 +82,11 @@ sql/hive-thriftserver/test_warehouses
 /bin/
 /.cache-main
 /.cache-tests
+/myfile.txt
+/POIs.csv
+/POIs.tar
+/POIs_old.csv
+/sampleCars.csv
+/samplePOIs.csv
+/trajectories.csv
+/trajectories.tar

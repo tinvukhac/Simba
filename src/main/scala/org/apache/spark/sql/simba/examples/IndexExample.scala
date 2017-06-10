@@ -18,8 +18,8 @@ object IndexExample {
       .getOrCreate()
 
     buildIndex(simbaSession)
-    useIndex1(simbaSession)
-    useIndex2(simbaSession)
+//    useIndex1(simbaSession)
+//    useIndex2(simbaSession)
     simbaSession.stop()
   }
 

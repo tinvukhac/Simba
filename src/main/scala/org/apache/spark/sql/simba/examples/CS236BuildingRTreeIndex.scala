@@ -29,13 +29,17 @@ object CS236BuildingRTreeIndex {
   private def buildRTreeIndex(simba: SimbaSession, dataset: String, fraction: Double): Unit = {
     import simba.implicits._  
     import simba.simbaImplicits._
+    // Read sample data from POI dataset
     val df = simba.read.option("header", false).csv(dataset).sample(true, fraction)
     val df2 = df.toDF("id", "desc", "lat", "lon")
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
     val ds = df3.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1), 
         row.getString(3).toDouble, row.getString(2).toDouble))
+    
+    // Index sample data using R-Tree
     ds.index(RTreeType, "rtreeindex",  Array("lat", "lon"))
     
+    // Compute MBRs of partitioned data
     val mbrs = ds.mapPartitions(iter => {
         var minX = Double.MaxValue
         var minY = Double.MaxValue

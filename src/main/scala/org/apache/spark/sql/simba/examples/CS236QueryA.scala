@@ -4,7 +4,7 @@ import org.apache.spark.sql.simba.{ Dataset, SimbaSession }
 import org.apache.spark.sql.simba.index.{ RTreeType, TreapType }
 import org.apache.spark.sql.simba.partitioner.STRPartitioner
 
-object CS236Query {
+object CS236QueryA {
   case class PointOfInterest(id: Long, desc: String, lat: Double, lon: Double)
   //case class trajectories(id: Long, seqid: Long, lat: Double, lon: Double)
   

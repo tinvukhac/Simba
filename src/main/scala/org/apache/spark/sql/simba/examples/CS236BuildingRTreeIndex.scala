@@ -6,6 +6,7 @@ import org.apache.spark.sql.simba.index.{ RTreeType, TreapType }
 import org.apache.spark.sql.simba.partitioner.STRPartitioner
 import org.apache.spark.sql.simba.spatial.MBR
 import org.apache.spark.sql.simba.spatial.Point
+import java.io._
 
 /*
  * Read 10% of POI dataset then create a R-Tree index
@@ -13,7 +14,7 @@ import org.apache.spark.sql.simba.spatial.Point
 
 object CS236BuildingRTreeIndex {
 
-  case class PointOfInterest(id: Long, desc: String, lat: Double, lon: Double) extends Serializable
+  case class PointOfInterest(id: Long, desc: String, lat: Double, lon: Double)
   case class PartitionMBR(x1: Double, y1: Double, x2: Double, y2: Double)
 
   def main(args: Array[String]): Unit = {
@@ -35,10 +36,10 @@ object CS236BuildingRTreeIndex {
     val df2 = df.toDF("id", "desc", "lat", "lon")
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
     val ds = df3.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1), 
-        row.getString(2).toDouble, row.getString(3).toDouble))
+        row.getString(3).toDouble, row.getString(2).toDouble))
     ds.index(RTreeType, "rtreeindex",  Array("lat", "lon"))
-    ds.show()
-    val counts = ds.mapPartitions(iter => {
+    
+    val mbrs = ds.mapPartitions(iter => {
         var minX = Double.MaxValue
         var minY = Double.MaxValue
         var maxX = Double.MinValue
@@ -55,6 +56,16 @@ object CS236BuildingRTreeIndex {
         mbr.iterator
       }
     ).collect()
-    println(counts.mkString("\n"))
+    println(mbrs.mkString("\n"))
+    
+    val mbrFile = new File("mbrs.txt")
+    val mbrBW = new BufferedWriter(new FileWriter(mbrFile))
+    mbrs.foreach(mbr => mbrBW.write(mbr.x1 + "," + mbr.y1 + "," + mbr.x2 + "," + mbr.y2 + "\n"))
+    mbrBW.close()
+    
+    val pointFile = new File("points.txt")
+    val pointBW = new BufferedWriter(new FileWriter(pointFile))
+    ds.collect().foreach(poi => pointBW.write(poi.lat + "," + poi.lon + "\n"))
+    pointBW.close()
   }
 }

@@ -27,10 +27,10 @@ object CS236QueryB {
     val df = simba.read.option("header", false).csv("datasets/trajectories.csv")
     val df2 = df.toDF("id", "seqid", "lat", "lon","tdate")
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
-    val df4 = df3.map(row => (row.getString(0).toLong, row.getString(1).toLong, 
-       row.getString(2).toDouble, row.getString(3).toDouble,unix_timestamp($"tdate","MM/dd/yyyy HH:mm:ss"))).toDF("id", "seqid", "lat", "lon","tdate")
-    df4.printSchema()
-    df4.show()
+    //val df4 = df3.map(row => (row.getString(0).toLong, row.getString(1).toLong, 
+      // row.getString(2).toDouble, row.getString(3).toDouble,unix_timestamp($"tdate","MM/dd/yyyy HH:mm:ss"))).toDF("id", "seqid", "lat", "lon","tdate")
+    //df4.printSchema()
+    //df4.show()
   }
    
 }

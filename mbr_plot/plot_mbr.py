@@ -6,8 +6,22 @@ class MBR:
     mbr = Polygon()
 
     def __init__(self, data):
-        x1, y1, x2, y2 = float(data[0]), float(data[1]), float(data[2]), float(data[3])
+        y1, x1, y2, x2 = float(data[0]), float(data[1]), float(data[2]), float(data[3])
         self.mbr = Polygon([(x1, y1), (x1, y2), (x2, y2), (x2, y1)])
+
+
+def plot_points(pointsfile):
+    with open(pointsfile) as f:
+        lines = f.readlines()
+        x = []
+        y = []
+        for line in lines:
+            data = line.replace('(', '').replace(')', '').split(",")
+            x.append(float(data[1]))
+            y.append(float(data[0]))
+        plt.scatter(x, y)
+
+    plt.savefig("center_points.png")
 
 
 def plot_mbrs(filename):
@@ -21,7 +35,7 @@ def plot_mbrs(filename):
             p = MBR(data[0:4])
             x, y = p.mbr.exterior.xy
             ax.plot(x, y, color='#ff0000', alpha=1.0, linewidth=1, solid_capstyle='round', zorder=2)
-        plt.savefig("mbr.png")
+        plt.savefig("gridcells.png")
 
 
 def plot_mbrs_points(mbrsfile, pointsfile):
@@ -41,15 +55,17 @@ def plot_mbrs_points(mbrsfile, pointsfile):
         y = []
         for line in lines:
             data = line.split(",")
-            x.append(data[0])
-            y.append(data[1])
+            x.append(data[1])
+            y.append(data[0])
         plt.scatter(x, y)
 
     plt.savefig("mbr.png")
 
 
 def main():
-    plot_mbrs_points("mbrs.txt", "points.txt")
+    # plot_mbrs_points("mbrs.txt", "points.txt")
+    # plot_mbrs("gridcells.txt")
+    plot_points("center_points.txt")
 
 
 if __name__ == "__main__":

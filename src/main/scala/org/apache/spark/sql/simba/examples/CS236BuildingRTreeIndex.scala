@@ -26,11 +26,11 @@ object CS236BuildingRTreeIndex {
     simbaSession.stop()
   }
   
-  private def buildRTreeIndex(simba: SimbaSession, dataset: String, samepleRate: Double): Unit = {
+  private def buildRTreeIndex(simba: SimbaSession, dataset: String, fraction: Double): Unit = {
     import simba.implicits._  
     import simba.simbaImplicits._
-    val df = simba.read.option("header", false).csv(dataset)
-    val df2 = df.toDF("id", "desc", "lat", "lon").limit((df.count() * samepleRate).toInt)
+    val df = simba.read.option("header", false).csv(dataset).sample(true, fraction)
+    val df2 = df.toDF("id", "desc", "lat", "lon")
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
     val ds = df3.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1), 
         row.getString(3).toDouble, row.getString(2).toDouble))

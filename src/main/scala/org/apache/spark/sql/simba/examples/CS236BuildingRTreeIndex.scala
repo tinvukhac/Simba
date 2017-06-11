@@ -41,19 +41,19 @@ object CS236BuildingRTreeIndex {
     
     // Compute MBRs of partitioned data
     val mbrs = ds.mapPartitions(iter => {
-        var minX = Double.MaxValue
-        var minY = Double.MaxValue
-        var maxX = Double.MinValue
-        var maxY = Double.MinValue
+        var minLat = Double.MaxValue
+        var minLon = Double.MaxValue
+        var maxLat = Double.MinValue
+        var maxLon = Double.MinValue
         
         while(iter.hasNext) {
           val poi = iter.next()
-          if(minX > poi.lat) minX = poi.lat
-          if(maxX < poi.lat) maxX = poi.lat
-          if(minY > poi.lon) minY = poi.lon
-          if(maxY < poi.lon) maxY = poi.lon
+          if(minLat > poi.lat) minLat = poi.lat
+          if(maxLat < poi.lat) maxLat = poi.lat
+          if(minLon > poi.lon) minLon = poi.lon
+          if(maxLon < poi.lon) maxLon = poi.lon
         }
-        List(PartitionMBR(minX, minY, maxX, maxY)).iterator
+        List(PartitionMBR(minLat, minLon, maxLat, maxLon)).iterator
       }
     ).collect()
     

@@ -29,13 +29,14 @@ object CS236QueryC {
     lon1: Double, lat1: Double, lon2: Double, lat2: Double): Unit = {
     import simba.implicits._
     import simba.simbaImplicits._
+    
     // Load data then index by R-Tree
     val df = simba.read.option("header", false).csv(dataset)
     val df2 = df.toDF("trajId", "seqId", "lon", "lat", "time")
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
     val ds = df3.map(row => Trajectory(row.getString(0).toLong, row.getString(1).toLong, row.getString(2).toDouble,
       row.getString(3).toDouble))
-//    ds.index(RTreeType, "rtreeindex",  Array("lat", "lon"))
+//    ds.index(RTreeType, "rtreeindex",  Array("lon", "lat"))
 
     // Extract all the trajectory points inside the 3rd road ring uing range query
     val rangeDF = ds.range(Array("lon", "lat"), Array(lon1, lat1), Array(lon2, lat2))

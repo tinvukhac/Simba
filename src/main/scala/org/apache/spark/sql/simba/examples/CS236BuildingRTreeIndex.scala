@@ -2,10 +2,7 @@ package org.apache.spark.sql.simba.examples
 
 import org.apache.spark.sql.simba.Dataset
 import org.apache.spark.sql.simba.SimbaSession
-import org.apache.spark.sql.simba.index.{ RTreeType, TreapType }
-import org.apache.spark.sql.simba.partitioner.STRPartitioner
-import org.apache.spark.sql.simba.spatial.MBR
-import org.apache.spark.sql.simba.spatial.Point
+import org.apache.spark.sql.simba.index.RTreeType
 import java.io._
 
 /*
@@ -25,15 +22,15 @@ object CS236BuildingRTreeIndex {
       .config("simba.index.partitions", "64")
       .getOrCreate()
 
-    buildRTreeIndex(simbaSession)
+    buildRTreeIndex(simbaSession, "datasets/POIs.csv", 0.1)
     simbaSession.stop()
   }
   
-  private def buildRTreeIndex(simba: SimbaSession): Unit = {
+  private def buildRTreeIndex(simba: SimbaSession, dataset: String, samepleRate: Double): Unit = {
     import simba.implicits._  
     import simba.simbaImplicits._
-    val df = simba.read.option("header", false).csv("datasets/POIs.csv").limit(6000)
-    val df2 = df.toDF("id", "desc", "lat", "lon")
+    val df = simba.read.option("header", false).csv(dataset)
+    val df2 = df.toDF("id", "desc", "lat", "lon").limit((df.count() * samepleRate).toInt)
     val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
     val ds = df3.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1), 
         row.getString(3).toDouble, row.getString(2).toDouble))
@@ -52,18 +49,18 @@ object CS236BuildingRTreeIndex {
           if(minY > poi.lon) minY = poi.lon
           if(maxY < poi.lon) maxY = poi.lon
         }
-        val mbr = List(PartitionMBR(minX, minY, maxX, maxY))
-        mbr.iterator
+        List(PartitionMBR(minX, minY, maxX, maxY)).iterator
       }
     ).collect()
-    println(mbrs.mkString("\n"))
     
-    val mbrFile = new File("mbrs.txt")
+    // Write MBRs to file
+    val mbrFile = new File("mbr_plot/mbrs.txt")
     val mbrBW = new BufferedWriter(new FileWriter(mbrFile))
     mbrs.foreach(mbr => mbrBW.write(mbr.x1 + "," + mbr.y1 + "," + mbr.x2 + "," + mbr.y2 + "\n"))
     mbrBW.close()
     
-    val pointFile = new File("points.txt")
+    // Write points to file
+    val pointFile = new File("mbr_plot/points.txt")
     val pointBW = new BufferedWriter(new FileWriter(pointFile))
     ds.collect().foreach(poi => pointBW.write(poi.lat + "," + poi.lon + "\n"))
     pointBW.close()

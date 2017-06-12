@@ -6,8 +6,8 @@ import org.apache.spark.sql.simba.index.RTreeType
 import org.apache.spark.sql.functions.{ unix_timestamp, from_unixtime, hour, minute }
 import java.io._
 
-object CS236QueryD {
-
+object CS236BenchmarkQueryD {
+  
   case class Trajectory1(trajId: Long, seqId: Long, lon1: Double, lat1: Double)
   case class Trajectory2(trajId: Long, seqId: Long, lon2: Double, lat2: Double)
 
@@ -18,12 +18,25 @@ object CS236QueryD {
       .appName("CS236BuildingRTreeIndex")
       .config("simba.index.partitions", "64")
       .getOrCreate()
-
-    findTopPolularPoints(simbaSession, "datasets/trajectories.csv", 10)
+      
+    val poiFile = new File("query_results/benchqueryD_core4.txt")
+    val poiBW = new BufferedWriter(new FileWriter(poiFile))
+    
+    for (i <- 10 to 20 by 10) { 
+      val start = System.nanoTime()
+      findTopPolularPoints(simbaSession, "datasets/trajectories.csv", i)
+      val end = System.nanoTime()
+      println("Time elapsed for  " + (end-start)/1000 + " microsecs")
+      val tep = (end-start)/1000
+      poiBW.write(tep.toString()+'\n')
+      
+    }
+    poiBW.close()
+    simbaSession.stop()
     simbaSession.stop()
   }
 
-  private def findTopPolularPoints(simba: SimbaSession, dataset: String, radius: Double): Unit = {
+ private def findTopPolularPoints(simba: SimbaSession, dataset: String, radius: Double): Unit = {
     import simba.implicits._
     import simba.simbaImplicits._
 

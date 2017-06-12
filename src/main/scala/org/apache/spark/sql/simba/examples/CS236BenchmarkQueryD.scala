@@ -63,7 +63,7 @@ object CS236BenchmarkQueryD {
     trajectoryDS.index(RTreeType, "trajrtreeindex",  Array("trajLon", "trajLat"))
     
     val distanceJoinResults = poiDS.distanceJoin(trajectoryDS, Array("poiLon", "poiLat"), Array("trajLon", "trajLat"), radius)
-    .groupBy("poiLon", "poiLat").count().orderBy($"count".desc).limit(10)
+    .groupBy("id").count().orderBy($"count".desc).limit(10)
     distanceJoinResults.printSchema()
     distanceJoinResults.show()
   }

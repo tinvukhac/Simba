@@ -18,8 +18,10 @@ object CS236QueryB {
       .appName("CS236BuildingRTreeIndex")
       .config("simba.index.partitions", "64")
       .getOrCreate()
+      
      objectsNearAirportQuery(simbaSession)
-     simbaSession.stop() //stopkkk
+     
+     simbaSession.stop() 
   }
  
   private def objectsNearAirportQuery(simba: SimbaSession): Unit = {
@@ -49,7 +51,6 @@ object CS236QueryB {
     val df9=ds.circleRange(Array("lon","lat"), Array(-302967.241,4481467.241), 5000).groupBy("date").count();
     df9.show()
     df9.select(avg($"count")).show()
-    //ds10.show()
     simba.stop()
   }
    

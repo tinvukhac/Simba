@@ -81,10 +81,10 @@ object CS236QueryD {
     results.show()
 
     // Write points to file
-    //    val pointFile = new File("mbr_plot/sample_points.txt")
-    //    val pointBW = new BufferedWriter(new FileWriter(pointFile))
-    //    ds.collect().foreach(poi => pointBW.write(poi.lat + "," + poi.lon + "\n"))
-    //    pointBW.close()
+    val pointFile = new File("query_results/query_D.txt")
+    val pointBW = new BufferedWriter(new FileWriter(pointFile))
+    results.collect().foreach(row => pointBW.write(row._1 + "," + row._2 + "," + row._3 + "\n"))
+    pointBW.close()
   }
 
   // Compute distance between 2 points

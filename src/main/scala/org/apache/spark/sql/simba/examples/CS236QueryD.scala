@@ -40,7 +40,8 @@ object CS236QueryD {
       row.getString(3).toDouble))
     val ds2 = df5.map(row => Trajectory2(row.getString(0).toLong, row.getString(1).toLong, row.getString(2).toDouble,
       row.getString(3).toDouble))
-    //    ds.index(RTreeType, "rtreeindex",  Array("lon", "lat"))
+    ds.index(RTreeType, "rtreeindex",  Array("lon1", "lat1"))
+    ds2.index(RTreeType, "rtreeindex",  Array("lon2", "lat2"))
     
     val distanceJoinResults = ds.distanceJoin(ds2, Array("lon1", "lat1"), Array("lon2", "lat2"), radius)
     .groupBy("lon1", "lat1").count().orderBy($"count".desc).limit(10)

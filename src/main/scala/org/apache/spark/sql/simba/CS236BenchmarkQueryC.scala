@@ -8,23 +8,31 @@ import org.apache.spark.sql.simba.spatial.Point;
 import scala.collection._
 import java.io._
 
-object CS236QueryC {
-
+object CS236BenchmarkQueryC {
   case class Trajectory(trajId: Long, seqId: Long, lon: Double, lat: Double)
   case class GridCell(row: Int, column: Int, count: Int)
 
   def main(args: Array[String]): Unit = {
     val simbaSession = SimbaSession
       .builder()
-      .master("local[4]")
+      .master("local[1]")
       .appName("CS236BuildingRTreeIndex")
       .config("simba.index.partitions", "64")
       .getOrCreate()
       
-    val start = System.nanoTime() 
-    aggregate(simbaSession, "datasets/trajectories.csv", 500, -332729.310, 4456050.000, -316725.862, 4469518.966)
-    val end = System.nanoTime()
-    println("Time elapsed: " + (end-start)/1000 + " microsecs")
+    val poiFile = new File("query_results/benchqueryc_core1.txt")
+    val poiBW = new BufferedWriter(new FileWriter(poiFile))  
+    for (i <- 100 to 1000 by 100)
+    {  
+      val start = System.nanoTime() 
+      aggregate(simbaSession, "datasets/trajectories.csv", 100, -332729.310, 4456050.000, -316725.862, 4469518.966)
+      val end = System.nanoTime()
+      println("Time elapsed for  " + (end-start)/1000 + " microsecs")
+      val tep = (end-start)/1000
+      poiBW.write(tep.toString()+'\n')
+      
+    }
+    poiBW.close()
     simbaSession.stop()
   }
 
@@ -83,4 +91,5 @@ object CS236QueryC {
     val greatCircleDistance = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     6371008.263 * greatCircleDistance
   }
+  
 }

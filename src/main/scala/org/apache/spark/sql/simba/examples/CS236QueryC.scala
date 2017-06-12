@@ -21,13 +21,17 @@ object CS236QueryC {
       .config("simba.index.partitions", "64")
       .getOrCreate()
       
-      
+      // FileWriter
+      val file = new File("QcCore1.txt")
+      val bw = new BufferedWriter(new FileWriter(file))
+        //bw.write(text)
     for (i <- 100 to 1000)
     {  
       val start = System.nanoTime() 
       aggregate(simbaSession, "datasets/trajectories.csv", i, -332729.310, 4456050.000, -316725.862, 4469518.966)
       val end = System.nanoTime()
-      println((end-start)/1000 )
+      //println((end-start)/1000 )
+      //bw.write()
       
     }
     

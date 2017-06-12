@@ -33,7 +33,8 @@ object CS236BuildingRTreeIndex {
     // Read sample data from POI dataset
     val df = simba.read.option("header", false).csv(dataset).sample(true, fraction)
     .toDF("id", "desc", "lon", "lat")
-    .filter("lat IS NOT NULL").filter("lon IS NOT NULL")
+    .filter("lon IS NOT NULL")
+    .filter("lat IS NOT NULL")
     val ds = df.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1), 
         row.getString(2).toDouble, row.getString(3).toDouble))
     ds.printSchema()

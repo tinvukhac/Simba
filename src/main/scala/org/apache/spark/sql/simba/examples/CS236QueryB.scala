@@ -19,7 +19,7 @@ object CS236QueryB {
       .config("simba.index.partitions", "64")
       .getOrCreate()
      objectsNearAirportQuery(simbaSession)
-     simbaSession.stop() //stop
+     simbaSession.stop() //stopkkk
   }
  
   private def objectsNearAirportQuery(simba: SimbaSession): Unit = {

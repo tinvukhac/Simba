@@ -1,3 +1,7 @@
+CS 236 Final Project
+===========================================
+XXX
+
 Simba: Spatial In-Memory Big data Analytics
 ===========================================
 **Simba is now shipped as a standalone package outside Spark. Current version works with Spark 2.1.x. If you find any issues, please make a ticket in the issue tracking system.**

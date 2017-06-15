@@ -41,7 +41,7 @@ object CS236BuildingRTreeIndex {
       .toDF("id", "desc", "lon", "lat")
       .filter("lon IS NOT NULL")
       .filter("lat IS NOT NULL")
-      
+
     // Map dataframe to a POI dataset
     val ds = df.map(row => PointOfInterest(row.getString(0).toLong, row.getString(1),
       row.getString(2).toDouble, row.getString(3).toDouble))

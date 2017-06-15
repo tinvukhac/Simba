@@ -1,7 +1,15 @@
 CS 236 Final Project
 ===========================================
-Dipankar Baisya, Tin Vu <br/>
+Team members: Dipankar Baisya, Tin Vu <br/><br/>
 This project aims to make students get familiar with Simba by using its indexing system then building some spatial query based-on Simba built-in interface.   
+
+How to run this code?
+---------------------
+All of new implementation were located at `org.apache.spark.examples`. Please clone this source code to your own machine. Make sure that you already installed SBT tool (http://www.scala-sbt.org/) to build Scala code. <br/><br/>
+
+Go to your project path, then run the "sbt" command to start working with SBT interactive environment. <br/><br/>
+Type "compile" to compile your code. <br/><br/>
+Type "run" to start your program.  
 
 Part 1: R-Tree Indexing
 -----------------------

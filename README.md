@@ -5,11 +5,28 @@ This project aims to make students get familiar with Simba by using its indexing
 
 How to run this code?
 ---------------------
-All of new implementation were located at `org.apache.spark.examples`. Please clone this source code to your own machine. Make sure that you already installed SBT tool (http://www.scala-sbt.org/) to build Scala code. <br/><br/>
+All of new implementation were located at `org.apache.spark.examples`. Please clone this source code to your own machine. Make sure that you already installed SBT tool (http://www.scala-sbt.org/) to build Scala code. 
 
-Go to your project path, then run the "sbt" command to start working with SBT interactive environment. <br/><br/>
-Type "compile" to compile your code. <br/><br/>
-Type "run" to start your program.  
+Go to your project path, then run the "sbt" command to start working with SBT interactive environment.
+
+Type "compile" to compile your code.
+
+Type "run" to start your program. You will have following options:
+
+*[1] org.apache.spark.sql.simba.examples.CS236BenchmarkQueryC*
+
+*[2] org.apache.spark.sql.simba.examples.CS236BenchmarkQueryD*
+
+*[3] org.apache.spark.sql.simba.examples.CS236BuildingRTreeIndex*
+
+*[4] org.apache.spark.sql.simba.examples.CS236QueryA*
+
+*[5] org.apache.spark.sql.simba.examples.CS236QueryB*
+
+*[6] org.apache.spark.sql.simba.examples.CS236QueryC*
+ 
+*[7] org.apache.spark.sql.simba.examples.CS236QueryD*
+  
 
 Part 1: R-Tree Indexing
 -----------------------

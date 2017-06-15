@@ -1,6 +1,7 @@
 CS 236 Final Project
 ===========================================
-XXX
+Dipankar Baisya, Tin Vu
+This project aims to make students get familiar with Simba by using its indexing system and building some spatial query based-on Simba built-in interface.   
 
 Simba: Spatial In-Memory Big data Analytics
 ===========================================

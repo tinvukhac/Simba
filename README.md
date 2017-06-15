@@ -30,7 +30,7 @@ Type "run" to start your program. You will have following options:
 
 Part 1: R-Tree Indexing
 -----------------------
-Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to "./mbr_plot/mbrs.csv" file. Please run the Python script at "./mbr_plot/plot_mbr.py" to visualize those MBRs. Our MBRs will be plotted at file "mbrs.png".
+Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.csv file. Please run the Python script at https://github.com/tinvukhac/Simba/blob/master/mbr_plot/plot_mbr.py to visualize those MBRs. Our MBRs will be plotted at file https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.png.
 
 Part 2: Building Spatial Query
 ------------------------------

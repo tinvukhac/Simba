@@ -49,7 +49,7 @@ For query C, benchmark result include 4 files which are corresponding to running
 For query D, benchmark result include 4 files which are corresponding to running time with 1,2,3,4 cores. Each file contains 10 line, which is running time in nanoseconds of query D with radius varying from 10-100m, step 10m. 
 
 End
-===
+---
 
 Simba: Spatial In-Memory Big data Analytics
 ===========================================

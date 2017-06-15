@@ -10,34 +10,6 @@ class MBR:
         self.mbr = Polygon([(x1, y1), (x1, y2), (x2, y2), (x2, y1)])
 
 
-def plot_points(pointsfile):
-    with open(pointsfile) as f:
-        lines = f.readlines()
-        x = []
-        y = []
-        for line in lines:
-            data = line.replace('(', '').replace(')', '').split(",")
-            x.append(float(data[1]))
-            y.append(float(data[0]))
-        plt.scatter(x, y)
-
-    plt.savefig("center_points.png")
-
-
-def plot_mbrs(filename):
-    with open(filename) as f:
-        fig = plt.figure(1, figsize=(50, 50), dpi=90)
-        ax = fig.add_subplot(111)
-        lines = f.readlines()
-        for line in lines:
-            print line
-            data = line.split(",")
-            p = MBR(data[0:4])
-            x, y = p.mbr.exterior.xy
-            ax.plot(x, y, color='#ff0000', alpha=1.0, linewidth=1, solid_capstyle='round', zorder=2)
-        plt.savefig("gridcells.png")
-
-
 def plot_mbrs_points(mbrsfile, pointsfile):
     fig = plt.figure(1, figsize=(50, 50), dpi=90)
     with open(mbrsfile) as f:
@@ -59,11 +31,11 @@ def plot_mbrs_points(mbrsfile, pointsfile):
             y.append(data[0])
         plt.scatter(x, y)
 
-    plt.savefig("mbr.png")
+    plt.savefig("mbrs.png")
 
 
 def main():
-    # plot_mbrs_points("mbrs.txt", "points.txt")
+    plot_mbrs_points("mbrs.csv", "points.csv")
     # plot_mbrs("gridcells.txt")
     plot_points("center_points.txt")
 

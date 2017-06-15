@@ -67,13 +67,13 @@ object CS236BuildingRTreeIndex {
     }).collect()
 
     // Write MBRs to file
-    val mbrFile = new File("mbr_plot/mbrs.txt")
+    val mbrFile = new File("mbr_plot/mbrs.csv")
     val mbrBW = new BufferedWriter(new FileWriter(mbrFile))
     mbrs.foreach(mbr => mbrBW.write(mbr.minLon + "," + mbr.minLat + "," + mbr.maxLon + "," + mbr.maxLat + "\n"))
     mbrBW.close()
 
     // Write points to file
-    val pointFile = new File("mbr_plot/points.txt")
+    val pointFile = new File("mbr_plot/points.csv")
     val pointBW = new BufferedWriter(new FileWriter(pointFile))
     ds.collect().foreach(poi => pointBW.write(poi.lon + "," + poi.lat + "\n"))
     pointBW.close()

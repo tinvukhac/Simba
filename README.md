@@ -30,7 +30,7 @@ Type "run" to start your program. You will have following options:
 
 Part 1: R-Tree Indexing
 -----------------------
-Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to [mbrs.csv](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.csv) file. Please run the Python script at [plot_mbr.py](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/plot_mbr.py) to visualize those MBRs. You may need to install some Python libraries like [matplotlib](https://matplotlib.org/) and [shapely](https://github.com/Toblerity/Shapely) to run this script. Our MBRs will be plotted at file [mbrs.png](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.png).
+Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to [mbrs.csv](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.csv) file. Please run the Python script at [plot_mbr.py](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/plot_mbr.py) to visualize those MBRs. You may need to install some Python libraries like [matplotlib](https://matplotlib.org/) and [shapely](https://github.com/Toblerity/Shapely) (pip install shapely --no-binary shapely) to run this script. Our MBRs will be plotted at file [mbrs.png](https://github.com/tinvukhac/Simba/blob/master/mbr_plot/mbrs.png).
 
 Part 2: Building Spatial Query
 ------------------------------

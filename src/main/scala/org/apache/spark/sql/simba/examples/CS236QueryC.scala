@@ -8,6 +8,9 @@ import org.apache.spark.sql.simba.spatial.Point;
 import scala.collection._
 import java.io._
 
+/**
+ * Point aggregation
+ */
 object CS236QueryC {
 
   case class Trajectory(trajId: Long, seqId: Long, lon: Double, lat: Double)
@@ -32,20 +35,21 @@ object CS236QueryC {
     import simba.implicits._
     import simba.simbaImplicits._
     
-    // Load data then index by R-Tree
+    // Read data from dataset, notice that we need to remove missing data points
     val df = simba.read.option("header", false).csv(dataset)
-    val df2 = df.toDF("trajId", "seqId", "lon", "lat", "time")
-    val df3 = df2.filter("lat IS NOT NULL").filter("lon IS NOT NULL")
-    val ds = df3.map(row => Trajectory(row.getString(0).toLong, row.getString(1).toLong, row.getString(2).toDouble,
+    .toDF("trajId", "seqId", "lon", "lat", "time")
+    .filter("lat IS NOT NULL")
+    .filter("lon IS NOT NULL")
+    val ds = df.map(row => Trajectory(row.getString(0).toLong, row.getString(1).toLong, row.getString(2).toDouble,
       row.getString(3).toDouble))
-//    ds.index(RTreeType, "rtreeindex",  Array("lon", "lat"))
 
-    // Extract all the trajectory points inside the 3rd road ring uing range query
+    // Extract all the trajectory points inside the 3rd road ring using range query
     val rangeDF = ds.range(Array("lon", "lat"), Array(lon1, lat1), Array(lon2, lat2))
 
     // Compute latitude and longtitude offset corresponding to cell size 
-    val height = haversineDistance((lon1 / 1000000, lat1 / 1000000), (lon2 / 1000000, lat1 / 1000000))
-    val width = haversineDistance((lon1 / 1000000, lat1 / 1000000), (lon1 / 1000000, lat2 / 1000000))
+    val M = 1000000
+    val height = haversineDistance((lat1 / M, lon1 / M), (lat1 / M, lon2 / M))
+    val width = haversineDistance((lat1 / M, lon1 / M), (lat2 / M, lon1 / M))
     val lonOffset = (lon2 - lon1) / height * cellSize
     val latOffset = (lat2 - lat1) / width * cellSize
 
@@ -74,7 +78,7 @@ object CS236QueryC {
     pointBW.close()
   }
 
-  // Compute distance between 2 points
+  // Compute Haversine distance between 2 points
   def haversineDistance(pointA: (Double, Double), pointB: (Double, Double)): Double = {
     val deltaLat = math.toRadians(pointB._1 - pointA._1)
     val deltaLong = math.toRadians(pointB._2 - pointA._2)

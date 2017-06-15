@@ -63,9 +63,9 @@ def plot_mbrs_points(mbrsfile, pointsfile):
 
 
 def main():
-    plot_mbrs_points("mbrs.txt", "points.txt")
+    # plot_mbrs_points("mbrs.txt", "points.txt")
     # plot_mbrs("gridcells.txt")
-    # plot_points("sample_points.txt")
+    plot_points("center_points.txt")
 
 
 if __name__ == "__main__":

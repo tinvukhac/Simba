@@ -16,16 +16,15 @@ object CS236QueryC {
   def main(args: Array[String]): Unit = {
     val simbaSession = SimbaSession
       .builder()
-      .master("local[4]")
+      .master("local[1]")
       .appName("CS236BuildingRTreeIndex")
       .config("simba.index.partitions", "64")
       .getOrCreate()
       
-    val start = System.nanoTime() 
+    
     aggregate(simbaSession, "datasets/trajectories.csv", 500, -332729.310, 4456050.000, -316725.862, 4469518.966)
-    val end = System.nanoTime()
-    println("Time elapsed: " + (end-start)/1000 + " microsecs")
     simbaSession.stop()
+    
   }
 
   private def aggregate(simba: SimbaSession, dataset: String, cellSize: Double,

@@ -15,20 +15,20 @@ object CS236BenchmarkQueryC {
   def main(args: Array[String]): Unit = {
     val simbaSession = SimbaSession
       .builder()
-      .master("local[1]")
+      .master("local[4]")
       .appName("CS236BuildingRTreeIndex")
       .config("simba.index.partitions", "64")
       .getOrCreate()
       
-    val poiFile = new File("query_results/benchqueryc_core1.txt")
+    val poiFile = new File("query_results/benchqueryc_core4.txt")
     val poiBW = new BufferedWriter(new FileWriter(poiFile))  
     for (i <- 100 to 1000 by 100)
     {  
       val start = System.nanoTime() 
-      aggregate(simbaSession, "datasets/trajectories.csv", 100, -332729.310, 4456050.000, -316725.862, 4469518.966)
+      aggregate(simbaSession, "datasets/trajectories.csv", i, -332729.310, 4456050.000, -316725.862, 4469518.966)
       val end = System.nanoTime()
       println("Time elapsed for  " + (end-start)/1000 + " microsecs")
-      val tep = (end-start)/1000
+      val tep = (end-start)/(1000*1000)
       poiBW.write(tep.toString()+'\n')
       
     }

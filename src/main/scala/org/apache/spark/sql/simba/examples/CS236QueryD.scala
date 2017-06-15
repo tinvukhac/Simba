@@ -19,7 +19,7 @@ object CS236QueryD {
       .config("simba.index.partitions", "64")
       .getOrCreate()
 
-    findTopPolularPoints(simbaSession, "datasets/POIs.csv", "datasets/trajectories.csv", 10)
+    findTopPolularPoints(simbaSession, "datasets/POIs.csv", "datasets/trajectories.csv", 100)
     simbaSession.stop()
   }
 

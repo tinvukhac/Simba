@@ -15,7 +15,7 @@ object CS236BenchmarkQueryC {
 
   def main(args: Array[String]): Unit = {
     for (core <- 1 to 4) {
-      val poiFile = new File("query_results/BenchmarkQueryC_" + core + "cores.txt")
+      val poiFile = new File("benchmark_results/BenchmarkQueryC_" + core + "cores.txt")
       val poiBW = new BufferedWriter(new FileWriter(poiFile))
       
       for (size <- 100 to 1000 by 100) {

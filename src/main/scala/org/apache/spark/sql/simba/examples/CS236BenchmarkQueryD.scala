@@ -13,7 +13,7 @@ object CS236BenchmarkQueryD {
 
   def main(args: Array[String]): Unit = {
     for (core <- 1 to 4) {
-      val poiFile = new File("query_results/BenchmarkQueryD_" + core + "cores.txt")
+      val poiFile = new File("benchmark_results/BenchmarkQueryD_" + core + "cores.txt")
       val poiBW = new BufferedWriter(new FileWriter(poiFile))
 
       for (radius <- 10 to 100 by 10) {

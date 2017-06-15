@@ -30,15 +30,22 @@ Type "run" to start your program. You will have following options:
 
 Part 1: R-Tree Indexing
 -----------------------
-Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to "./mbr_plot/mbrs.csv" file. To visualize the file. Please run the Python script at "./mbr_plot/plot_mbr.py". Our MBRs will be plotted at file "mbrs.png".
+Choose the option [3] from the list above. This program will take 10% of POIs dataset then build an R-Tree index from sample data. After that, it computes MBRs of indexed partitions then dump it to "./mbr_plot/mbrs.csv" file. Please run the Python script at "./mbr_plot/plot_mbr.py" to visualize those MBRs. Our MBRs will be plotted at file "mbrs.png".
 
 Part 2: Building Spatial Query
 ------------------------------
 Choose the options [4],[5],[6],[7] to run query A,B,C and D.
 
+Query results will be stored at "./query_results/"
+
 Part 3: Benchmark
 -----------------
 Choose option [1],[2] to benchmark the query C and query D.
+
+Benchmark results will be stored at "./benchmark_results/"
+
+End
+===
 
 Simba: Spatial In-Memory Big data Analytics
 ===========================================

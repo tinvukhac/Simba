@@ -71,7 +71,7 @@ object CS236QueryC {
     })
 
     // Write results to file
-    val pointFile = new File("mbr_plot/center_points.csv")
+    val pointFile = new File("query_results/center_points.csv")
     val pointBW = new BufferedWriter(new FileWriter(pointFile))
     results.collect().foreach(row => pointBW.write(row._1 + "," + row._2 + "," + row._3 + "\n"))
     pointBW.close()

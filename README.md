@@ -42,7 +42,11 @@ Part 3: Benchmark
 -----------------
 Choose option [1],[2] to benchmark the query C and query D.
 
-Benchmark results will be stored at "./benchmark_results/"
+Benchmark results will be stored at "./benchmark_results/". 
+
+For query C, benchmark result include 4 files which are corresponding to running time with 1,2,3,4 cores. Each file contains 10 line, which is running time in nanoseconds of query C with grid cell size varying from 100-1000m, step 100m.
+
+For query D, benchmark result include 4 files which are corresponding to running time with 1,2,3,4 cores. Each file contains 10 line, which is running time in nanoseconds of query D with radius varying from 10-100m, step 10m. 
 
 End
 ===

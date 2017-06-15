@@ -5,7 +5,7 @@ This project aims to make students get familiar with Simba by using its indexing
 
 How to run this code?
 ---------------------
-All of new implementation were located at `org.apache.spark.examples`. Please clone this source code to your own machine. Make sure that you already installed SBT tool (http://www.scala-sbt.org/) to build Scala code. 
+All of new implementation were located at `org.apache.spark.examples`. Please clone this source code to your own machine, then copy POIs ("POIs.csv") and trajectories ("trajectories.csv") dataset to "./datasets". Make sure that you already installed SBT tool (http://www.scala-sbt.org/) to build Scala code. 
 
 Go to your project path, then run the "sbt" command to start working with SBT interactive environment.
 

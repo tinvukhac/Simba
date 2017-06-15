@@ -24,13 +24,12 @@ object CS236QueryC {
       .config("simba.index.partitions", "64")
       .getOrCreate()
       
-    
     aggregate(simbaSession, "datasets/trajectories.csv", 500, -332729.310, 4456050.000, -316725.862, 4469518.966)
     simbaSession.stop()
     
   }
 
-  private def aggregate(simba: SimbaSession, dataset: String, cellSize: Double,
+  def aggregate(simba: SimbaSession, dataset: String, cellSize: Double,
     lon1: Double, lat1: Double, lon2: Double, lat2: Double): Unit = {
     import simba.implicits._
     import simba.simbaImplicits._

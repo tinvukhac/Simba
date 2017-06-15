@@ -26,7 +26,7 @@ object CS236QueryD {
     simbaSession.stop()
   }
 
-  private def findTopPolularPoints(simba: SimbaSession, poiDataset: String, trajectoryDataset: String, radius: Double): Unit = {
+  def findTopPolularPoints(simba: SimbaSession, poiDataset: String, trajectoryDataset: String, radius: Double): Unit = {
     import simba.implicits._
     import simba.simbaImplicits._
     
